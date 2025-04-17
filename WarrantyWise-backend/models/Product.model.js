@@ -7,9 +7,9 @@ const productSchema = new mongoose.Schema(
     modelNumber: { type: String },
     serialNumber: { type: String, required: true },
     purchaseDate: { type: Date, required: true },
-    detectedPurchaseDate: { type: Date }, // from OCR
+    // detectedPurchaseDate: { type: Date }, // from OCR
     warrantyPeriodMonths: { type: Number, required: true },
-    invoiceImageURL: { type: String }, // Cloudinary/local path
+    // invoiceImageURL: { type: String }, // Cloudinary/local path
     isUnderWarranty: { type: Boolean, default: true },
   },
   { timestamps: true }

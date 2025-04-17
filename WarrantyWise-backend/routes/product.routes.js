@@ -3,12 +3,14 @@ const router = express.Router();
 
 const mongoose = require("mongoose");
 
-const Product = require("../models/Warranty.model");
-const { isAuthenticated, user } = require("../middleware/jwt.middleware");
+const Product = require("../models/Product.model");
+const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 //POST Product
 
 router.post("/", isAuthenticated, async (req, res) => {
+  console.log("reached");
+
   try {
     const {
       name,
@@ -19,16 +21,16 @@ router.post("/", isAuthenticated, async (req, res) => {
     } = req.body;
 
     const response = await Product.create({
-      user: req.user._id,
+      user: req.payload._id,
       name,
       modelNumber,
       serialNumber,
       purchaseDate: new Date(purchaseDate),
       warrantyPeriodMonths,
-      invoiceImageURL: "",
+      //   invoiceImageURL: "",
       isUnderWarranty: true,
     });
-    res.status(201).json(newProduct);
+    res.status(201).json(response);
   } catch (error) {
     res
       .status(500)
@@ -109,3 +111,5 @@ router.put("/:productId", isAuthenticated, async (req, res) => {
       .json({ message: "Error updating product", error: error.message });
   }
 });
+
+module.exports = router;
